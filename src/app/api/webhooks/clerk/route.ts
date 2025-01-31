@@ -1,4 +1,5 @@
-import { clerkClient } from "@clerk/nextjs/server";
+/* eslint-disable camelcase */
+import { clerkClient } from "@clerk/nextjs";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -58,7 +59,7 @@ export async function POST(req: Request) {
 //   console.log(evt);
   // CREATE
   if (eventType === "user.created") {
-    const { id, email_addresses,first_name,last_name, username } =
+    const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
 
     console.log("user created",evt);
@@ -67,31 +68,34 @@ export async function POST(req: Request) {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!,
+      firstName: first_name,
+      lastName: last_name,
+      photo: image_url,
     };
-
-    console.log("In webhook",user)
 
     const newUser = await createUser(user);
 
     // Set public metadata
-    // if (newUser) {
-    //   await clerkClient.users.updateUserMetadata(id, {
-    //     publicMetadata: {
-    //       userId: newUser._id,
-    //     },
-    //   });
-    // }
+    if (newUser) {
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: {
+          userId: newUser._id,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "OK", user: newUser });
   }
 
   // UPDATE
   if (eventType === "user.updated") {
-    const { id, first_name, last_name, username, email_addresses } = evt.data;
+    const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
+      firstName: first_name,
+      lastName: last_name,
       username: username!,
-      email:email_addresses[0].email_address
+      photo: image_url,
     };
 
     const updatedUser = await updateUser(id, user);

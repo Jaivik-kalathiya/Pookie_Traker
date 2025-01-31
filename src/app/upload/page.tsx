@@ -15,6 +15,7 @@ const videoData = [
     thumbnail: "/api/placeholder/360/202",
     duration: "18:30",
   },
+  
   {
     id: "3",
     title: "World Travel Secrets",

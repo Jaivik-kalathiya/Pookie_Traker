@@ -6,19 +6,20 @@ import { revalidatePath } from "next/cache";
 
 import { handleError } from "../utils";
 
-import { connectToDB } from "../mongoose";
-import User from "../models/user.model";
+
+
+import { connectToDB } from "../database/mongoose";
+import User from "../database/models/user.model";
 
 // CREATEx
 export async function createUser(user: {
-
   username: string;
   email: string;
   clerkId: string;
-}) {
+}) {3
   try {
     await connectToDB();
-    console.log("near to connectToDB function");
+    console.log("near to connectToDB function", user);
     const newUser = await User.create(user);
 
     return JSON.parse(JSON.stringify(newUser));
