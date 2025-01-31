@@ -70,5 +70,32 @@ html,
 body,
 :root{
   height: 100%;
-  background-color: rgb(148 163 184);
+  background-color: rgb(101, 117, 141);
+}
+@keyframes loading {
+  0% { width: 0% }
+  100% { width: 100% }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.animate-loading {
+  animation: loading 2s ease-in-out infinite;
+}
+
+.animate-typing {
+  animation: typing 1s steps(20, end);
+}
+
+.animate-typing-2 {
+  animation: typing 1s steps(20, end);
+  animation-delay: 0.5s;
+}
+
+.animate-typing-3 {
+  animation: typing 1s steps(20, end);
+  animation-delay: 1s;
 }

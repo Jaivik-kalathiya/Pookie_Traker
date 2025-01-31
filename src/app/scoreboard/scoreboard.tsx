@@ -6,13 +6,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 import { Avatar } from "../components/ui/avatar";
 import { Card, CardContent } from "../components/ui/card";
+import { Crosshair, Heart, Skull, Swords, Target, Trophy } from "lucide-react";
 
-import Winning from "./winning";
+
 
 
 const playerData = [
     {
-      img: "/../public/astra.png", // Updated path
+      img: "/astra.png",
       name: "K K",
       kills: 22,
       deaths: 17,
@@ -23,7 +24,7 @@ const playerData = [
       team: "A"
     },
     {
-        img: "/../public/astra.png", // Updated path
+      img: "/astra.png", 
       name: "BrainX",
       kills: 17,
       deaths: 23,
@@ -34,7 +35,7 @@ const playerData = [
       team: "A"
     },
     {
-        img: "/../public/astra.png", // Updated path
+      img: "/astra.png", 
       name: "Neel",
       kills: 20,
       deaths: 20,
@@ -45,7 +46,7 @@ const playerData = [
       team: "A"
     },
     {
-      img: "/../public/astra.png", // Updated path
+      img: "/astra.png",
       name: "Glaciot214",
       kills: 15,
       deaths: 20,
@@ -65,99 +66,130 @@ const playerData = [
     return (
       <>
 
-      <div className="text-center text-3xl font-bold text-[#142539] mt-6">
-        Scrore Board
+<div className="min-h-screen p-8 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent drop-shadow-lg">
+            Match Statistics
+          </h1>
+          <p className="text-gray-400 mt-2">Detailed performance metrics</p>
+        </div>
+
+        {/* Team A Scoreboard */}
+        <Card className="mb-8 overflow-hidden border-t border-[rgba(255,255,255,0.1)] bg-[rgba(17,25,34,0.8)] backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <Trophy className="w-6 h-6 text-yellow-500" />
+              <h2 className="text-2xl font-bold text-blue-400">Team A</h2>
+            </div>
+            
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b border-[rgba(255,255,255,0.1)]">
+                  <TableHead className="text-left text-[#6094d0] font-semibold">Agent</TableHead>
+                  <TableHead className="text-left text-[#6094d0] font-semibold">Player</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold"><Target className="w-4 h-4 inline mr-1" />Kills</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold"><Skull className="w-4 h-4 inline mr-1" />Deaths</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold"><Heart className="w-4 h-4 inline mr-1" />Assists</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold"><Swords className="w-4 h-4 inline mr-1" />K/D</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold">DMG/Round</TableHead>
+                  <TableHead className="text-center text-[#6094d0] font-semibold"><Crosshair className="w-4 h-4 inline mr-1" />HS%</TableHead>
+                </TableRow>
+              </TableHeader>
+              
+              <TableBody>
+                {teamA.map((player, index) => (
+                  <TableRow 
+                    key={index} 
+                    className="border-b border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+                  >
+                    <TableCell>
+                      <Avatar className="h-10 w-10 ring-2 ring-blue-500/50">
+                        <Image
+                          src={player.img}
+                          alt={`Player ${index + 1}`}
+                          width={40}
+                          height={40}
+                          className="rounded-full hover:scale-110 transition-transform"
+                        />
+                      </Avatar>
+                    </TableCell>
+                    <TableCell className="font-medium text-gray-200">{player.name}</TableCell>
+                    <TableCell className="text-center font-semibold text-white">{player.kills}</TableCell>
+                    <TableCell className="text-center text-gray-300">{player.deaths}</TableCell>
+                    <TableCell className="text-center text-gray-300">{player.assists}</TableCell>
+                    <TableCell className={`text-center font-medium ${player.kd >= 1 ? "text-[#1fed33]" : "text-red-500"}`}>
+                      {player.kd.toFixed(1)}
+                    </TableCell>
+                    <TableCell className={`text-center font-medium ${player.ddPerRound >= 0 ? "text-[#1fed33]" : "text-red-500"}`}>
+                      {player.ddPerRound >= 0 ? "+" : ""}{player.ddPerRound}
+                    </TableCell>
+                    <TableCell className="text-center font-medium text-purple-400">{player.hsPercentage}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        {/* Team B Scoreboard - Similar structure with different colors */}
+        <Card className="overflow-hidden border-t border-[rgba(255,255,255,0.1)] bg-[rgba(17,25,34,0.8)] backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+  <CardContent className="p-6">
+    <div className="flex items-center gap-3 mb-6">
+      <Trophy className="w-6 h-6 text-red-500" />
+      <h2 className="text-2xl font-bold text-red-400">Team B</h2>
+    </div>
+    
+    <Table className="w-full">
+      <TableHeader>
+        <TableRow className="border-b border-[rgba(255,255,255,0.1)]">
+          <TableHead className="text-left text-red-400 font-semibold">Agent</TableHead>
+          <TableHead className="text-left text-red-400 font-semibold">Player</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold"><Target className="w-4 h-4 inline mr-1" />Kills</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold"><Skull className="w-4 h-4 inline mr-1" />Deaths</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold"><Heart className="w-4 h-4 inline mr-1" />Assists</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold"><Swords className="w-4 h-4 inline mr-1" />K/D</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold">DMG/Round</TableHead>
+          <TableHead className="text-center text-red-400 font-semibold"><Crosshair className="w-4 h-4 inline mr-1" />HS%</TableHead>
+        </TableRow>
+      </TableHeader>
+      
+      <TableBody>
+        {teamB.map((player, index) => (
+          <TableRow 
+            key={index} 
+            className="border-b border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+          >
+            <TableCell>
+              <Avatar className="h-10 w-10 ring-2 ring-red-500/50">
+                <Image
+                  src={player.img}
+                  alt={`Player ${index + 1}`}
+                  width={40}
+                  height={40}
+                  className="rounded-full hover:scale-110 transition-transform"
+                />
+              </Avatar>
+            </TableCell>
+            <TableCell className="font-medium text-gray-200">{player.name}</TableCell>
+            <TableCell className="text-center font-semibold text-white">{player.kills}</TableCell>
+            <TableCell className="text-center text-gray-300">{player.deaths}</TableCell>
+            <TableCell className="text-center text-gray-300">{player.assists}</TableCell>
+            <TableCell className={`text-center font-medium ${player.kd >= 1 ? "text-[#1fed33]" : "text-red-500"}`}>
+              {player.kd.toFixed(1)}
+            </TableCell>
+            <TableCell className={`text-center font-medium ${player.ddPerRound >= 0 ? "text-[#1fed33]" : "text-red-500"}`}>
+              {player.ddPerRound >= 0 ? "+" : ""}{player.ddPerRound}
+            </TableCell>
+            <TableCell className="text-center font-medium text-purple-400">{player.hsPercentage}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </CardContent>
+</Card>
       </div>
-        <div>
-          <Card className="pt-1 shadow-lg rounded-lg mt-10 w-3/4 mx-auto bg-[#111922] text-white">
-            <CardContent>
-              <Table className="min-w-full border-collapse bg-[rgba(17, 25, 34, 0.8)]">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-left  text-[#6094d0]">Team A</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Name</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Kills</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Deaths</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Assists</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">K/D</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Damage</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">HS%</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {teamA.map((player, index) => (
-                    <TableRow key={index} className="border-b hover:bg-[#1a2633]">
-                      <TableCell>
-                        <Avatar className="h-8 w-8">
-                          <Image
-                            src={player.img}
-                            alt={`Player ${index + 1}`}
-                            width={32}
-                            height={32}
-                            className="rounded-full"
-                          />
-                        </Avatar>
-                      </TableCell>
-                      <TableCell>{player.name}</TableCell>
-                      <TableCell>{player.kills}</TableCell>
-                      <TableCell>{player.deaths}</TableCell>
-                      <TableCell>{player.assists}</TableCell>
-                      <TableCell className={player.kd < 0 ? "text-red-600" : "text-[#1fed33]"}>{player.kd < 0 ? "" : "+"}{player.kd}</TableCell>
-                      <TableCell className={player.ddPerRound < 0 ? "text-red-600" : "text-[#1fed33]"}>{player.ddPerRound < 0 ? "" : "+"}{player.ddPerRound}</TableCell>
-                      <TableCell>{player.hsPercentage}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-  
-          <Card className="py-2 shadow-lg rounded-lg mt-3 w-3/4 mx-auto bg-[#111922] text-white">
-            <CardContent>
-              <Table className="min-w-full border-collapse bg-[rgba(17, 25, 34, 0.8)]">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-left text-[#6094d0]">Team B</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Name</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Kills</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Deaths</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Assists</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">K/D</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">Damage</TableHead>
-                    <TableHead className="text-left  text-[#6094d0]">HS%</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {teamB.map((player, index) => (
-                    <TableRow key={index} className="border-b hover:bg-[#1a2633]">
-                      <TableCell>
-                        <Avatar className="h-8 w-8">
-                          <Image
-                            src={player.img}
-                            alt={`Player ${index + 1}`}
-                            width={32}
-                            height={32}
-                            className="rounded-full"
-                          />
-                        </Avatar>
-                      </TableCell>
-                      <TableCell>{player.name}</TableCell>
-                      <TableCell>{player.kills}</TableCell>
-                      <TableCell>{player.deaths}</TableCell>
-                      <TableCell>{player.assists}</TableCell>
-                      <TableCell className={player.kd < 0 ? "text-red-600" : "text-[#1fed33]"}>{player.kd < 0 ? "" : "+"}{player.kd}</TableCell>
-                      <TableCell className={player.ddPerRound < 0 ? "text-red-600" : "text-[#1fed33]"}>{player.ddPerRound < 0 ? "" : "+"}{player.ddPerRound}</TableCell>
-                      <TableCell>{player.hsPercentage}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-        <div>
-          
-        </div>
+    </div>
       </>
     );
   };

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Equal, Trophy } from 'lucide-react';
+import { Crown, Equal, Star, Trophy } from 'lucide-react';
 const Winning = () => {
     const matchResults = {
         teamA: [
@@ -33,51 +33,94 @@ const Winning = () => {
 
   return (
     <>
-   <div className='text-center text-3xl font-bold text-[#142539] mt-6'>
-    Winning Chart
-   </div>
-    <div className="p-2 mt-10 shadow-lg rounded-lg w-3/4 mx-auto bg-[#111922] text-white">
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableCell className="font-bold text-[#6094d0]">Team</TableCell>
-          {matchResults.teamA.map((_, index) => (
-            <TableCell key={index} className="text-center text-[#6094d0]">
-              {index + 1}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-bold">Team A</TableCell>
-          {matchResults.teamA.map((won, index) => (
-            <TableCell key={index} className="text-center">
-              {won && teamAWinInd[index] && !teamBWinInd[index]  && (
-                <Trophy className="w-5 h-5 text-green-500 mx-auto" />
-              )}
-              {!teamAWinInd[index] && !teamBWinInd[index] &&(
-                 <Equal className="w-4 h-4 text-blue-500" />
-              )}
-            </TableCell>
-            
-          ))}
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-bold">Team B</TableCell>
-          {matchResults.teamB.map((won, index) => (
-            <TableCell key={index} className="text-center">
-              {won && <Trophy className="w-5 h-5 text-red-500 mx-auto" />}
-              {!teamAWinInd[index] && !teamBWinInd[index] &&(
-                 <Equal className="w-4 h-4 text-blue-500" />
-              )}
-            </TableCell>
-            
-          ))}
-        </TableRow>
-      </TableBody>
-    </Table>
-  </div>
+    <div className="min-h-screen p-8 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent drop-shadow-lg">
+            Match History
+          </h1>
+          <p className="text-gray-400 mt-2">Track your team's performance</p>
+        </div>
+
+        <div className="relative p-6 rounded-2xl bg-[rgba(17,25,34,0.8)] backdrop-blur-lg border border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+          {/* Team Score Summary */}
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.05)] backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <Crown className="w-5 h-5 text-yellow-500" />
+                <h2 className="text-xl font-semibold text-white">Team A</h2>
+              </div>
+              <p className="text-3xl font-bold text-blue-400 mt-2">
+                {teamAWinInd.filter(x => x === 1).length} Wins
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.05)] backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <Star className="w-5 h-5 text-purple-500" />
+                <h2 className="text-xl font-semibold text-white">Team B</h2>
+              </div>
+              <p className="text-3xl font-bold text-red-400 mt-2">
+                {teamBWinInd.filter(x => x === 1).length} Wins
+              </p>
+            </div>
+          </div>
+
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow className="hover:bg-[rgba(255,255,255,0.05)] transition-colors">
+                <TableHead className="text-left font-bold text-lg text-blue-400">Round</TableHead>
+                {matchResults.teamA.map((_, index) => (
+                  <TableHead key={index} className="text-center font-medium text-gray-400">
+                    {index + 1}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow className="hover:bg-[rgba(255,255,255,0.05)] transition-colors">
+                <TableCell className="font-semibold text-blue-300">Team A</TableCell>
+                {matchResults.teamA.map((won, index) => (
+                  <TableCell key={index} className="text-center">
+                    <div className="flex justify-center items-center">
+                      {won && teamAWinInd[index] && !teamBWinInd[index] && (
+                        <Trophy className="w-6 h-6 text-yellow-500 transform hover:scale-110 transition-transform" />
+                      )}
+                      {!teamAWinInd[index] && !teamBWinInd[index] && (
+                        <Equal className="w-5 h-5 text-gray-400 transform hover:rotate-180 transition-transform" />
+                      )}
+                    </div>
+                  </TableCell>
+                ))}
+              </TableRow>
+              <TableRow className="hover:bg-[rgba(255,255,255,0.05)] transition-colors">
+                <TableCell className="font-semibold text-red-300">Team B</TableCell>
+                {matchResults.teamB.map((won, index) => (
+                  <TableCell key={index} className="text-center">
+                    <div className="flex justify-center items-center">
+                      {won && (
+                        <Trophy className="w-6 h-6 text-red-500 transform hover:scale-110 transition-transform" />
+                      )}
+                      {!teamAWinInd[index] && !teamBWinInd[index] && (
+                        <Equal className="w-5 h-5 text-gray-400 transform hover:rotate-180 transition-transform" />
+                      )}
+                    </div>
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableBody>
+          </Table>
+
+          <div className="mt-6 flex gap-4 justify-center text-sm text-gray-400">
+            <div className="flex items-center gap-2">
+              <Trophy className="w-4 h-4 text-yellow-500" /> Win
+            </div>
+            <div className="flex items-center gap-2">
+              <Equal className="w-4 h-4 text-gray-400" /> Draw
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </>
   )
 }

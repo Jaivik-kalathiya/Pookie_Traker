@@ -1,11 +1,11 @@
 
 import React from 'react'
 
-interface ScoreBoardlayputProps {
+interface VidoeUploadtProps {
     children: React.ReactNode;
   }
 
-const ScoreBoardlayput = ({ children }:ScoreBoardlayputProps) => {
+const VidoeUploadtProps = ({ children }:VidoeUploadtProps) => {
   return (      
     <div className='bg-rgb(101, 117, 141)'>
         {children}
@@ -14,4 +14,4 @@ const ScoreBoardlayput = ({ children }:ScoreBoardlayputProps) => {
   )
 }
 
-export default ScoreBoardlayput;
+export default VidoeUploadtProps;
