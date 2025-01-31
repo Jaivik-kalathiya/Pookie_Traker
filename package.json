@@ -10,12 +10,19 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "gatsby-plugin-image": "^3.14.0",
+    "lucide-react": "^0.474.0",
     "mongodb": "^6.13.0",
     "mongoose": "^8.9.5",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "svix": "^1.45.1"
+    "svix": "^1.45.1",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
